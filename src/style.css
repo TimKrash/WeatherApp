@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+  overflow: auto;
+}
+body .search {
+  margin-top: 20px;
+}
+body .current-weather-container {
+  display: flex;
+  flex-direction: column;
+  width: 85vw;
+  gap: 30px;
+}
+body .current-weather-container .weather-main-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body .current-weather-container .weather-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+body .current-weather-container .weather-container .weather-item {
+  border: 1px solid black;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  height: 100px;
+  width: 100px;
+}
+body .future-weather-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+body .future-weather-container .time-selector {
+  margin-bottom: 10px;
+}
+body .future-weather-container .time-item-container {
+  width: 85vw;
+  display: flex;
+  flex-direction: column;
+}
+body .future-weather-container .time-item-container .time-item {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+}
+body .future-weather-container .time-item-container .time-item .time-weather-content {
+  display: flex;
+  gap: 8px;
+}
+
+@media (min-width: 600px) {
+  body .current-weather-container .weather-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  body .future-weather-container {
+    width: 85vw;
+  }
+  body .future-weather-container .time-item-container {
+    flex-direction: row;
+    gap: 30px;
+    justify-content: space-around;
+  }
+  body .future-weather-container .time-item-container .time-item {
+    flex-direction: column;
+  }
+  body .future-weather-container .time-item-container .time-item .time-weather-content {
+    flex-direction: column;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
