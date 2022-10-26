@@ -18,61 +18,103 @@
   <div class="current-weather-container">
     <div class="weather-main-info">
       <h1>Chicago, Illinois</h1>
-      <div class="time">current time</div>
-      <div class="temperature">Temperature</div>
-      <div class="description">Description</div>
+      <div class="main-time">3:37PM</div>
+      <div class="main-temp">51 &deg;F</div>
+      <div class="main-desc">Clear Sky</div>
       <div class="high-low">
-        <span class="high">High</span>
-        <span class="low">Low</span>
+        <span class="high">H: 51 &deg;F</span>
+        <span class="low">L: 46 &deg;F</span>
       </div>
     </div>
 
     <div class="weather-container">
         <div class="weather-item feels-like">
-          <div class="weather-icon">Icon</div>
-          <span>Feels Like</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-temperature-three-quarters"></i></span>
+            <span>Feels Like</span>
+          </div>
+          <div class="content">48 &deg;F</div>
+          <div class="sub-content">This is an extra description</div>
         </div>
         <div class="weather-item humidity">
-          <div class="weather-icon">Icon</div>
-          <span>Humidity</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-hot-tub-person"></i></span>
+            <span>Humidity</span>
+          </div>
+          <div class="content">54%</div>
+          <div class="sub-content">The dew point is 37&deg; right now</div>
         </div>
         <div class="weather-item chance-of-rain">
-          <div class="weather-icon">Icon</div>
-          <span>Chance of Rain</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-cloud-showers-heavy"></i></span>
+            <span>Chance of Rain</span>
+          </div>
+          <div class="content">87%</div>
+          <div class="sub-content">There is a high chance of rain today</div>
         </div>
         <div class="weather-item wind-speed">
-          <div class="weather-icon">Icon</div>
-          <span>Wind Speed</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-wind"></i></span>
+            <span>Wind Speed</span>
+          </div>
+          <div class="content">7 mph</div>
+          <div class="sub-content">The wind is to the Northwest</div>
         </div>
+
         <div class="weather-item uvi">
-          <div class="weather-icon">Icon</div>
-          <span>UV Index</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-sun"></i></span>
+            <span>UV Index</span>
+          </div>
+          <div class="content">1</div>
+          <div class="sub-content">Low index, no need for sunscreen!</div>
         </div>
+
         <div class="weather-item sunset">
-          <div class="weather-icon">Icon</div>
-          <span>Sunset</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-cloud-sun"></i></span>
+            <span>Sunset</span>
+          </div>
+          <div class="content">5:52PM</div>
+          <div class="sub-content">Sunrise: 7:17AM</div>
         </div>
+
         <div class="weather-item rainfall">
-          <div class="weather-icon">Icon</div>
-          <span>Rainfall</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-droplet"></i></span>
+            <span>Rainfall</span>
+          </div>
+          <div class="content">.55"</div>
+          <div class="sub-content">As of last 3 hours</div>
         </div>
+
         <div class="weather-item pressure">
-          <div class="weather-icon">Icon</div>
-          <span>Pressure</span>
+          <div class="header">
+            <span class="weather-icon"><i class="fa-solid fa-thermometer"></i></span>
+            <span>Pressure</span>
+          </div>
+          <div class="content">30.02 inHg</div>
+          <div class="sub-content">This is a moderate pressure level</div>
         </div>
     </div>
   </div>
 
   <div class="future-weather-container">
-    <div class="time-selector">Placeholder for daily/hourly selector</div>
+    <div class="time-selector">
+      <label class="toggle">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
     <div class="time-item-container">
       <div class="time-item">
         <div class="time">Day 1</div>
         <div class="time-weather-content">
           <div class="temp-content">
-            Temp Content
+            <div class="high-temp">20 &deg;C</div>
+            <div class="low-temp">13 &deg;C</div>
           </div>
-          <div class="icon">Weather Icon</div>
+          <div class="icon"><i class="fa-solid fa-cloud-sun fa-2x"></i></div>
         </div>
       </div>
       <div class="time-item">
