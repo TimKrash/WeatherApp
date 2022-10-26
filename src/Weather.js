@@ -34,12 +34,36 @@ export default class Weather {
     return this.country;
   }
 
+  getUvi() {
+    return this.current.uvi;
+  }
+
+  getPressure() {
+    return this.current.pressure;
+  }
+
+  getRainfall() {
+    return this.daily[0].rain;
+  }
+
+  getSunset() {
+    return this.current.sunset;
+  }
+
   getDescription() {
     return formatLocation(this.current.weather[0].description);
   }
 
   getCurrentTemp() {
     return this.current.temp;
+  }
+
+  getTodayLow() {
+    return this.daily[0].temp.min;
+  }
+
+  getTodayHigh() {
+    return this.daily[0].temp.max;
   }
 
   getFeelsLike() {
