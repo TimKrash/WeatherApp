@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+<script defer src="main.js"></script></head>
+<body>
+  <div class="search">
+    <form action="">
+      <input type="text" placeholder="Enter city" id="location" name="location" required>
+      <input type="submit">
+    </form>
+  </div>
+
+  <div class="current-weather-container">
+    <div class="weather-main-info">
+      <h1>Chicago, Illinois</h1>
+      <div class="time">current time</div>
+      <div class="temperature">Temperature</div>
+      <div class="description">Description</div>
+      <div class="high-low">
+        <span class="high">High</span>
+        <span class="low">Low</span>
+      </div>
+    </div>
+
+    <div class="weather-container">
+        <div class="weather-item feels-like">
+          <div class="weather-icon">Icon</div>
+          <span>Feels Like</span>
+        </div>
+        <div class="weather-item humidity">
+          <div class="weather-icon">Icon</div>
+          <span>Humidity</span>
+        </div>
+        <div class="weather-item chance-of-rain">
+          <div class="weather-icon">Icon</div>
+          <span>Chance of Rain</span>
+        </div>
+        <div class="weather-item wind-speed">
+          <div class="weather-icon">Icon</div>
+          <span>Wind Speed</span>
+        </div>
+        <div class="weather-item uvi">
+          <div class="weather-icon">Icon</div>
+          <span>UV Index</span>
+        </div>
+        <div class="weather-item sunset">
+          <div class="weather-icon">Icon</div>
+          <span>Sunset</span>
+        </div>
+        <div class="weather-item rainfall">
+          <div class="weather-icon">Icon</div>
+          <span>Rainfall</span>
+        </div>
+        <div class="weather-item pressure">
+          <div class="weather-icon">Icon</div>
+          <span>Pressure</span>
+        </div>
+    </div>
+  </div>
+
+  <div class="future-weather-container">
+    <div class="time-selector">Placeholder for daily/hourly selector</div>
+    <div class="time-item-container">
+      <div class="time-item">
+        <div class="time">Day 1</div>
+        <div class="time-weather-content">
+          <div class="temp-content">
+            Temp Content
+          </div>
+          <div class="icon">Weather Icon</div>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="time">Day 2</div>
+        <div class="time-weather-content">
+          <div class="temp-content">
+            Temp Content
+          </div>
+          <div class="icon">Weather Icon</div>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="time">Day 3</div>
+        <div class="time-weather-content">
+          <div class="temp-content">
+            Temp Content
+          </div>
+          <div class="icon">Weather Icon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
