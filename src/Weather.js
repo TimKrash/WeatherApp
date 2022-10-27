@@ -1,13 +1,14 @@
 import { formatLocation } from './Utils';
 
 export default class Weather {
-  constructor(name, state, country, current, daily, hourly) {
+  constructor(name, state, country, timezone, current, daily, hourly) {
     this.current = {};
     this.daily = {};
     this.hourly = {};
     this.name = name;
     this.state = state;
     this.country = country;
+    this.timezone = timezone;
 
     for (const [k, v] of Object.entries(current)) {
       this.current[k] = v;
@@ -32,6 +33,10 @@ export default class Weather {
 
   getCountry() {
     return this.country;
+  }
+
+  getTimezone() {
+    return this.timezone;
   }
 
   getUvi() {

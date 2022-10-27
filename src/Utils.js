@@ -22,4 +22,18 @@ function formatLocation(location) {
   return words.join(' ');
 }
 
-export { GeocoderURL, WeatherURL, formatLocation };
+function getDay(timezone, nextDayIdx) {
+  const weekArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let rawDate = new Date().toLocaleString("en-US", { timeZone: timezone });
+
+  rawDate = new Date(rawDate);
+  const dayIdx = rawDate.getDay();
+
+  return weekArray[(dayIdx + nextDayIdx) % 7];
+}
+
+const imperialMap = {}
+imperialMap[true] = {tempUnit: 'F', speedUnit: 'mph', pressureUnit: 'hPa'}
+imperialMap[false] = {tempUnit: 'C', speedUnit: 'mps', pressureUnit: 'hPa'}
+
+export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay };

@@ -75,7 +75,7 @@ body .current-weather-container .weather-container .weather-item .header span {
 }
 body .current-weather-container .weather-container .weather-item .content, body .current-weather-container .weather-container .weather-item .sub-content {
   margin-left: 7px;
-  width: 130px;
+  width: 100%;
 }
 body .current-weather-container .weather-container .weather-item .content {
   margin-top: 15px;
@@ -107,6 +107,37 @@ body .future-weather-container .time-selector .toggle {
   border-radius: var(--height);
   cursor: pointer;
 }
+body .future-weather-container .time-selector .toggle .labels {
+  position: absolute;
+  top: 8px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  color: #4d4d4d;
+  font-size: 12px;
+  font-family: sans-serif;
+  transition: all 0.4s ease-in-out;
+}
+body .future-weather-container .time-selector .toggle .labels::after {
+  content: attr(hourly-off);
+  position: absolute;
+  opacity: 1;
+  right: 5px;
+  transition: all 0.4s ease-in-out;
+}
+body .future-weather-container .time-selector .toggle .labels::before {
+  content: attr(hourly-on);
+  position: absolute;
+  opacity: 0;
+  left: 5px;
+  transition: all 0.4s ease-in-out;
+}
+body .future-weather-container .time-selector .toggle input:checked ~ .labels::after {
+  opacity: 0;
+}
+body .future-weather-container .time-selector .toggle input:checked ~ .labels::before {
+  opacity: 1;
+}
 body .future-weather-container .time-selector .toggle .slider {
   position: absolute;
   top: 0;
@@ -130,9 +161,11 @@ body .future-weather-container .time-selector .toggle .slider::before {
   transition: all 0.4s ease-in-out;
 }
 body .future-weather-container .time-selector .toggle input:checked + .slider {
-  background-color: #2196F3;
+  border-color: #2196F3;
 }
 body .future-weather-container .time-selector .toggle input:checked + .slider::before {
+  border-color: #2196F3;
+  background-color: #c6e5ff;
   transform: translateX(calc(var(--width) - var(--height)));
 }
 body .future-weather-container .time-selector .toggle input {
@@ -174,6 +207,9 @@ body .future-weather-container .time-item-container .time-item .time-weather-con
 @media (min-width: 600px) {
   body .current-weather-container .weather-container {
     grid-template-columns: repeat(4, 1fr);
+  }
+  body .current-weather-container .weather-container .weather-item {
+    width: 240px;
   }
   body .future-weather-container {
     width: 85vw;

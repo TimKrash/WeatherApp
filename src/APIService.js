@@ -35,7 +35,7 @@ class APIService {
     const data = await getWeatherData(info.lat, info.lon, "imperial", this.key);
     console.log("setting " + location + " in storage...");
 
-    const weatherObject = new Weather(info.name, info.state, info.country, data.current, data.daily, data.hourly);
+    const weatherObject = new Weather(info.name, info.state, info.country, data.timezone, data.current, data.daily, data.hourly);
     Store.setItem(location, JSON.stringify(weatherObject));
 
     return weatherObject;
@@ -45,6 +45,7 @@ class APIService {
     const weatherUrl = WeatherURL(lat, lon, units, key);
     const rawResponse = await fetch(weatherUrl, { mode: 'cors' });
     const response = await rawResponse.json();
+    console.log(response);
 
     return response;
   }
