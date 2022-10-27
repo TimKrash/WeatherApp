@@ -45,8 +45,15 @@ function getImgUrl(icon) {
   return openWeatherURL + "img/wn/" + icon + "@2x.png";
 }
 
+function getDirection(deg) {
+  const directions = ["North", "North-East", "East", "South-East", "South", "South-West", "West", "North-West"];
+  const idx = Math.round(((deg %= 360) < 0 ? deg + 360 : deg) / 45) % 8;
+
+  return directions[idx];
+}
+
 const imperialMap = {}
 imperialMap[true] = {tempUnit: 'F', speedUnit: 'mph', pressureUnit: 'hPa'}
 imperialMap[false] = {tempUnit: 'C', speedUnit: 'mps', pressureUnit: 'hPa'}
 
-export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay, getImgUrl, getHour };
+export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay, getImgUrl, getHour, getDirection };

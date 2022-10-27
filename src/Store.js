@@ -10,6 +10,10 @@ class Store {
   getItem(k) {
     return this.localStorage.getItem(k);
   }
+
+  clearStore() {
+    this.localStorage.clear();
+  }
 }
 
 export default (new Store);

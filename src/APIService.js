@@ -18,11 +18,9 @@ class APIService {
     let cityWeather = Store.getItem(location);
     // Todo remove this + Store -- for use while developing only
     if (cityWeather) {
-      console.log(location + " exists in storage");
       cityWeather = JSON.parse(cityWeather);
       const targetWeather = new Weather(cityWeather.name, cityWeather.state, cityWeather.country,
         cityWeather.timezone, cityWeather.current, cityWeather.daily, cityWeather.hourly);
-      console.log(targetWeather);
 
       return targetWeather;
     }
@@ -34,7 +32,6 @@ class APIService {
 
     const getWeatherData = this.errorHandler(this.getWeatherData);
     const data = await getWeatherData(info.lat, info.lon, "imperial", this.key);
-    console.log("setting " + location + " in storage...");
 
     const weatherObject = new Weather(info.name, info.state, info.country, data.timezone, data.current, data.daily, data.hourly);
     Store.setItem(location, JSON.stringify(weatherObject));
@@ -46,7 +43,6 @@ class APIService {
     const weatherUrl = WeatherURL(lat, lon, units, key);
     const rawResponse = await fetch(weatherUrl, { mode: 'cors' });
     const response = await rawResponse.json();
-    console.log(response);
 
     return response;
   }

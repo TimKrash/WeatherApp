@@ -1,6 +1,6 @@
 import './style.css';
 import APIService from './APIService';
-import { getHour, getImgUrl, formatLocation, imperialMap, getDay } from './Utils';
+import { getDirection, getHour, getImgUrl, formatLocation, imperialMap, getDay } from './Utils';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
@@ -51,7 +51,6 @@ class UI {
 
     // todo add loader css
     this.city = await APIService.createNewWeatherObject(location);
-    console.log(this.city);
 
     this.loadSections();
   }
@@ -97,17 +96,26 @@ class UI {
       const subContent = weatherItem.querySelector(".sub-content");
 
       if (classList.contains("uvi")) {
-        dataItem.textContent = this.city.getUvi();
+        const uvi = this.city.getUvi();
+        dataItem.textContent = uvi;
+        subContent.textContent = this.displayUviText(uvi);
       } else if (classList.contains("feels-like")) {
-        dataItem.textContent = this.city.getFeelsLike() + this.getTempDelimiter();
+        const feelsLike = Math.round(this.city.getFeelsLike());
+        dataItem.textContent = feelsLike + this.getTempDelimiter();
+        subContent.textContent = this.displayFeelsLikeText(feelsLike);
       } else if (classList.contains("humidity")) {
         dataItem.textContent = this.city.getHumidity() + "%";
+        subContent.textContent = this.displayHumidityText();
       } else if (classList.contains("chance-of-rain")) {
-        dataItem.textContent = this.city.getChanceOfRain() + "%";
+        const pop = this.city.getChanceOfRain();
+        dataItem.textContent = pop + "%";
+        subContent.textContent = this.displayChanceOfRainText(pop);
       } else if (classList.contains("wind-speed")) {
         dataItem.textContent = this.city.getWindSpeed() + this.getSpeedDelimiter();
+        subContent.textContent = this.displayWindText();
       } else if (classList.contains("sunset")) {
         dataItem.textContent = this.city.getSunset();
+        subContent.textContent = this.displaySunsetText();
       } else if (classList.contains("rainfall")) {
         const rainFall = this.city.getRainfall();
         if (rainFall !== undefined) {
@@ -115,10 +123,81 @@ class UI {
         } else {
           dataItem.textContent = "0mm";
         }
+
+        subContent.textContent = "As of the last 3 hours";
       } else if (classList.contains("pressure")) {
-        dataItem.textContent = this.city.getPressure() + this.getPressureDelimiter();
+        const pressure = this.city.getPressure();
+        dataItem.textContent = pressure + this.getPressureDelimiter();
+        subContent.textContent = this.displayPressureText(pressure);
       }
     });
+  }
+
+  displayPressureText(level) {
+    if (level >= 1022) {
+      return "This is a high air pressure";
+    } else if (level <= 1009) {
+      return "This is a low air pressure";
+    } else if (level > 1009 && level < 1022) {
+      return "This is a moderate air pressure";
+    }
+  }
+
+  displayWindText() {
+    return "The wind is to the " + getDirection(this.city.getWindDegree());
+  }
+
+  displayChanceOfRainText(pop) {
+    if (pop > 0 && pop < 50) {
+      return "There is a slight chance of rain today";
+    } else if (pop >= 50 && pop < 100) {
+      return "There is a high chance of rain today";
+    } else if (pop === 100) {
+      return "There is a guaranteed chance of rain today";
+    } else if (pop === 0) {
+      return "There is no chance of rain today";
+    }
+  }
+
+  displayUviText(uvi) {
+    switch (uvi) {
+      case 0:
+      case 1:
+      case 2:
+        return "This is a low UV index";
+      case 3:
+      case 4:
+      case 5:
+        return "This is a moderate UV index, sunscreen is recommended";
+      case 6:
+      case 7:
+        return "This is a high UV index. Make sure to use sunscreen!";
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        return "Extremely high UV rating. Please remain indoors!";
+    }
+  }
+
+  displayFeelsLikeText(feelsLike) {
+    const currTemp = this.city.getCurrentTemp();
+
+    if (feelsLike < currTemp) {
+      return "The wind is causing it to feel colder than it actually is";
+    } else if (feelsLike > currTemp) {
+      return "The humidity is causing it to feel hotter than it actually is";
+    } else {
+      return "Feels just like how it's supposed to!";
+    }
+  }
+
+  displayHumidityText() {
+    return "The dew point is " + this.city.getDewPoint() + "\u00B0" + " right now";
+  }
+
+  displaySunsetText() {
+    return "Sunrise: " + this.city.getSunrise();
   }
 
   plusHourlySlides(n) {

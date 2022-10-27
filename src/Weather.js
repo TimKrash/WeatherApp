@@ -43,20 +43,31 @@ export default class Weather {
     return this.timezone;
   }
 
+  getDewPoint() {
+    return Math.round(this.current.dew_point);
+  }
+
   getUvi() {
-    return this.current.uvi;
+    return Math.ceil(this.current.uvi);
   }
 
   getPressure() {
-    return this.current.pressure;
+    return Math.round(this.current.pressure);
   }
 
   getRainfall() {
-    return this.daily[0].rain;
+    if (this.daily[0].rain) {
+      return this.daily[0].rain["3h"];
+    }
+    return 0;
   }
 
   getSunset() {
-    return this.current.sunset;
+    return new Date(this.current.sunset * 1000).toLocaleTimeString([], { timeZone: this.timezone, timeStyle: 'short' });
+  }
+
+  getSunrise() {
+    return new Date(this.current.sunrise * 1000).toLocaleTimeString([], { timeZone: this.timezone, timeStyle: 'short' });
   }
 
   getDescription() {
@@ -84,10 +95,14 @@ export default class Weather {
   }
 
   getChanceOfRain() {
-    return this.daily[0].pop;
+    return this.daily[0].pop * 100;
   }
 
   getWindSpeed() {
-    return this.current.wind_speed;
+    return Math.round(this.current.wind_speed);
+  }
+
+  getWindDegree() {
+    return this.current.wind_deg;
   }
 }
