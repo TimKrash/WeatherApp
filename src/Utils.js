@@ -1,5 +1,5 @@
-const globalURL = "http://api.openweathermap.org/";
-const openWeatherURL = "http://openweathermap.org/";
+const globalURL = "https://api.openweathermap.org/";
+const openWeatherURL = "https://openweathermap.org/";
 
 function GeocoderURL(city, limit, key) {
   return globalURL + "geo/1.0/direct?q=" + city + "&limit=" + limit + "&appid=" + key;
