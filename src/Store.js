@@ -1,7 +1,6 @@
 class Store {
   constructor() {
     this.localStorage = window.localStorage;
-    this.localStorage.clear();
   }
 
   setItem(k, v) {

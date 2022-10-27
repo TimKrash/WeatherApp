@@ -13,6 +13,7 @@ class UI {
     this.toggleTimeframe = this.toggleTimeframe.bind(this);
     this.daily = true;
     this.isImperial = true;
+    this.hourlySlideIdx = 1;
   }
 
   getTempDelimiter() {
@@ -36,8 +37,11 @@ class UI {
     }, 1000, this.city.getTimezone())
   }
 
-  loadPage() {
+  async loadPage() {
+    // todo move back to event listener after finished
     this.addEventListeners();
+    this.city = await APIService.createNewWeatherObject("Chicago");
+    this.loadSections();
   }
 
   async loadWeather(formValues) {
@@ -117,12 +121,69 @@ class UI {
     });
   }
 
+  plusHourlySlides(n) {
+    this.loadHourlySlides(this.hourlySlideIdx += n);
+  }
+
+  loadHourlySlides(n) {
+    let slides = document.querySelectorAll(".time-item-container.hourly");
+    let dots = document.querySelectorAll("span.dot");
+
+    if (n > slides.length) { this.hourlySlideIdx = 1 };
+    if (n < 1) { this.hourlySlideIdx = slides.length };
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].className = slides[i].className.replace(" active", "");
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+
+    slides[this.hourlySlideIdx - 1].className += " active";
+    dots[this.hourlySlideIdx - 1].className += " active";
+  }
+
   loadHourlyForecast() {
-    const timeItemContainer = document.querySelector(".time-item-container");
+    const timeItemContainerDaily = document.querySelector(".time-item-container.daily");
+    timeItemContainerDaily.style.display = "none";
+
+    const carousel = document.querySelector(".carousel");
+    carousel.style.display = "flex";
+
+    // remove previous arrow buttons to refresh new ones
+    const oldPrev = carousel.querySelector(".prev");
+    const oldNext = carousel.querySelector(".next");
+    if (oldPrev && oldNext) {
+      oldPrev.remove();
+      oldNext.remove();
+    }
+
+    const prev = document.createElement("a");
+    prev.classList.add("prev");
+    prev.textContent = "❮";
+    prev.addEventListener("click", () => this.plusHourlySlides(-1));
+
+    const next = document.createElement("a");
+    next.classList.add("next");
+    next.textContent = "❯";
+    next.addEventListener("click", () => this.plusHourlySlides(1));
+
+    carousel.prepend(prev);
+    carousel.append(next);
+
+    this.loadHourlySlides(1);
   }
 
   loadDailyForecast() {
-    const timeItemContainer = document.querySelector(".time-item-container");
+    const timeItemContainer = document.querySelector(".time-item-container.daily");
+    const timeItemContainerHourly = document.querySelector(".time-item-container.hourly.active");
+    if (timeItemContainerHourly) {
+      timeItemContainerHourly.className = timeItemContainerHourly.className.replace(" active", "");
+    }
+
+    timeItemContainer.style.display = "flex";
+
+    const carousel = document.querySelector(".carousel");
+    carousel.style.display = "none";
     timeItemContainer.innerHTML = "";
 
     const dailyForecasts = this.city.daily;
@@ -195,7 +256,7 @@ class UI {
       this.loadWeather(values);
     });
 
-    const dailyToggle = document.querySelector(".time-selector");
+    const dailyToggle = document.querySelector("span.labels");
     dailyToggle.addEventListener('click', this.toggleTimeframe)
   }
 }

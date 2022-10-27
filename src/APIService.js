@@ -21,7 +21,7 @@ class APIService {
       console.log(location + " exists in storage");
       cityWeather = JSON.parse(cityWeather);
       const targetWeather = new Weather(cityWeather.name, cityWeather.state, cityWeather.country,
-        cityWeather.current, cityWeather.daily, cityWeather.hourly);
+        cityWeather.timezone, cityWeather.current, cityWeather.daily, cityWeather.hourly);
 
       return targetWeather;
     }
