@@ -179,14 +179,15 @@ body .future-weather-container .time-item-container {
 }
 body .future-weather-container .time-item-container .time-item {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   gap: 8px;
 }
 body .future-weather-container .time-item-container .time-item .time {
-  font-size: 30px;
+  margin-left: 10px;
+  font-size: 20px;
 }
 body .future-weather-container .time-item-container .time-item .time-weather-content {
+  margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -197,11 +198,11 @@ body .future-weather-container .time-item-container .time-item .time-weather-con
   flex-direction: column;
 }
 body .future-weather-container .time-item-container .time-item .time-weather-content .temp-content .high-temp {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 700;
 }
 body .future-weather-container .time-item-container .time-item .time-weather-content .temp-content .low-temp {
-  font-size: 15px;
+  font-size: 12px;
 }
 
 @media (min-width: 600px) {
@@ -221,8 +222,14 @@ body .future-weather-container .time-item-container .time-item .time-weather-con
   }
   body .future-weather-container .time-item-container .time-item {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  body .future-weather-container .time-item-container .time-item .time {
+    margin-left: 0;
   }
   body .future-weather-container .time-item-container .time-item .time-weather-content {
+    margin-left: 0;
     flex-direction: column;
   }
 }

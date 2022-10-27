@@ -1,4 +1,5 @@
 const globalURL = "http://api.openweathermap.org/";
+const openWeatherURL = "http://openweathermap.org/";
 
 function GeocoderURL(city, limit, key) {
   return globalURL + "geo/1.0/direct?q=" + city + "&limit=" + limit + "&appid=" + key;
@@ -32,8 +33,12 @@ function getDay(timezone, nextDayIdx) {
   return weekArray[(dayIdx + nextDayIdx) % 7];
 }
 
+function getImgUrl(icon) {
+  return openWeatherURL + "img/wn/" + icon + "@2x.png";
+}
+
 const imperialMap = {}
 imperialMap[true] = {tempUnit: 'F', speedUnit: 'mph', pressureUnit: 'hPa'}
 imperialMap[false] = {tempUnit: 'C', speedUnit: 'mps', pressureUnit: 'hPa'}
 
-export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay };
+export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay, getImgUrl };

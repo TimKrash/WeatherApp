@@ -35,6 +35,10 @@ export default class Weather {
     return this.country;
   }
 
+  getCurrentIcon() {
+    return this.current.weather[0].icon;
+  }
+
   getTimezone() {
     return this.timezone;
   }
@@ -60,19 +64,19 @@ export default class Weather {
   }
 
   getCurrentTemp() {
-    return this.current.temp;
+    return Math.round(this.current.temp);
   }
 
   getTodayLow() {
-    return this.daily[0].temp.min;
+    return Math.round(this.daily[0].temp.min);
   }
 
   getTodayHigh() {
-    return this.daily[0].temp.max;
+    return Math.round(this.daily[0].temp.max);
   }
 
   getFeelsLike() {
-    return this.current.feels_like;
+    return Math.round(this.current.feels_like);
   }
 
   getHumidity() {

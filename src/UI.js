@@ -1,6 +1,6 @@
 import './style.css';
 import APIService from './APIService';
-import { formatLocation, imperialMap, getDay } from './Utils';
+import { getImgUrl, formatLocation, imperialMap, getDay } from './Utils';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
@@ -75,11 +75,14 @@ class UI {
     const description = weatherMainInfo.querySelector(".main-desc");
     description.textContent = this.city.getDescription();
 
+    const weatherIcon = weatherMainInfo.querySelector(".main-icon");
+    weatherIcon.src = getImgUrl(this.city.getCurrentIcon());
+
     const highTemp = weatherMainInfo.querySelector(".high-low > .high");
-    highTemp.textContent = this.city.getTodayHigh() + this.getTempDelimiter();
+    highTemp.textContent = "H: " + this.city.getTodayHigh() + this.getTempDelimiter();
 
     const lowTemp = weatherMainInfo.querySelector(".high-low > .low");
-    lowTemp.textContent = this.city.getTodayLow() + this.getTempDelimiter();
+    lowTemp.textContent = "L: " + this.city.getTodayLow() + this.getTempDelimiter();
   }
 
   loadWeatherItems() {
@@ -144,17 +147,22 @@ class UI {
 
       const highTemp = document.createElement('div');
       highTemp.classList.add("high-temp");
-      highTemp.textContent = dailyForecasts[idx].temp.max + this.getTempDelimiter();
+      highTemp.textContent = Math.round(dailyForecasts[idx].temp.max) + this.getTempDelimiter();
 
       const lowTemp = document.createElement('div');
       lowTemp.classList.add("low-temp");
-      lowTemp.textContent = dailyForecasts[idx].temp.min + this.getTempDelimiter();
+      lowTemp.textContent = Math.round(dailyForecasts[idx].temp.min) + this.getTempDelimiter();
 
       tempContent.append(highTemp, lowTemp);
 
       const weatherIcon = document.createElement('div');
       weatherIcon.classList.add("icon");
-      weatherIcon.textContent = "Test";
+
+      const weatherIconImg = document.createElement('img');
+      weatherIconImg.src = getImgUrl(dailyForecasts[idx].weather[0].icon);
+      weatherIconImg.width = "50";
+      weatherIconImg.height = "50";
+      weatherIcon.append(weatherIconImg);
 
       timeWeatherContent.append(tempContent, weatherIcon);
       timeItem.append(time, timeWeatherContent);
