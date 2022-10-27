@@ -33,6 +33,14 @@ function getDay(timezone, nextDayIdx) {
   return weekArray[(dayIdx + nextDayIdx) % 7];
 }
 
+function getHour(timezone, dt) {
+  let rawDate = new Date(dt * 1000).toLocaleString("en-US", { timeZone: timezone });
+  rawDate = new Date(rawDate);
+
+  const hour = (rawDate.getHours() === 12 || rawDate.getHours() === 0) ? 12 : (rawDate.getHours() % 12);
+  return hour + rawDate.toLocaleTimeString("en-US", { timeZone: timezone }).split(" ")[1];
+}
+
 function getImgUrl(icon) {
   return openWeatherURL + "img/wn/" + icon + "@2x.png";
 }
@@ -41,4 +49,4 @@ const imperialMap = {}
 imperialMap[true] = {tempUnit: 'F', speedUnit: 'mph', pressureUnit: 'hPa'}
 imperialMap[false] = {tempUnit: 'C', speedUnit: 'mps', pressureUnit: 'hPa'}
 
-export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay, getImgUrl };
+export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay, getImgUrl, getHour };

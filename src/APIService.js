@@ -22,6 +22,7 @@ class APIService {
       cityWeather = JSON.parse(cityWeather);
       const targetWeather = new Weather(cityWeather.name, cityWeather.state, cityWeather.country,
         cityWeather.timezone, cityWeather.current, cityWeather.daily, cityWeather.hourly);
+      console.log(targetWeather);
 
       return targetWeather;
     }

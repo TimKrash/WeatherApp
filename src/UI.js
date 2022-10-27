@@ -1,6 +1,6 @@
 import './style.css';
 import APIService from './APIService';
-import { getImgUrl, formatLocation, imperialMap, getDay } from './Utils';
+import { getHour, getImgUrl, formatLocation, imperialMap, getDay } from './Utils';
 import '@fortawesome/fontawesome-free/js/fontawesome';
 import '@fortawesome/fontawesome-free/js/solid';
 import '@fortawesome/fontawesome-free/js/regular';
@@ -127,6 +127,57 @@ class UI {
 
   loadHourlySlides(n) {
     let slides = document.querySelectorAll(".time-item-container.hourly");
+    let slideIdx = 0;
+
+    // load in api content
+    slides.forEach(slide => {
+      slide.innerHTML = "";
+
+      const hourlyForecasts = this.city.hourly;
+      let counter = 0;
+      while (counter < 8) {
+        if (slideIdx === 0) {
+          slideIdx += 1;
+          continue;
+        }
+
+        const timeItem = document.createElement('div');
+        timeItem.classList.add("time-item");
+
+        const time = document.createElement('div');
+        time.classList.add("time");
+        time.textContent = getHour(this.city.getTimezone(), hourlyForecasts[slideIdx].dt);
+
+        const timeWeatherContent = document.createElement('div');
+        timeWeatherContent.classList.add("time-weather-content");
+
+        const tempContent = document.createElement('div');
+        tempContent.classList.add("temp-content");
+
+        const highTemp = document.createElement('div');
+        highTemp.classList.add("high-temp");
+        highTemp.textContent = Math.round(hourlyForecasts[slideIdx].temp) + this.getTempDelimiter();
+
+        tempContent.append(highTemp);
+
+        const weatherIcon = document.createElement('div');
+        weatherIcon.classList.add("icon");
+
+        const weatherIconImg = document.createElement('img');
+        weatherIconImg.src = getImgUrl(hourlyForecasts[slideIdx].weather[0].icon);
+        weatherIconImg.width = "50";
+        weatherIconImg.height = "50";
+        weatherIcon.append(weatherIconImg);
+
+        timeWeatherContent.append(tempContent, weatherIcon);
+        timeItem.append(time, timeWeatherContent);
+
+        slide.append(timeItem);
+        slideIdx += 1;
+        counter += 1;
+      }
+    });
+
     let dots = document.querySelectorAll("span.dot");
 
     if (n > slides.length) { this.hourlySlideIdx = 1 };
