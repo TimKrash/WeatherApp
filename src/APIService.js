@@ -14,7 +14,8 @@ class APIService {
     }
   }
 
-  async createNewWeatherObject(location) {
+  async createNewWeatherObject(location, units) {
+    /*
     let cityWeather = Store.getItem(location);
     // Todo remove this + Store -- for use while developing only
     if (cityWeather) {
@@ -24,6 +25,7 @@ class APIService {
 
       return targetWeather;
     }
+    */
 
     const geoCoderUrl = GeocoderURL(location, 1, this.key);
 
@@ -31,7 +33,7 @@ class APIService {
     const info = await getLocationInfo(geoCoderUrl);
 
     const getWeatherData = this.errorHandler(this.getWeatherData);
-    const data = await getWeatherData(info.lat, info.lon, "imperial", this.key);
+    const data = await getWeatherData(info.lat, info.lon, units, this.key);
 
     const weatherObject = new Weather(info.name, info.state, info.country, data.timezone, data.current, data.daily, data.hourly);
     Store.setItem(location, JSON.stringify(weatherObject));

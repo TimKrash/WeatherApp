@@ -11,13 +11,20 @@ class UI {
     this.city = null;
     this.loadPage = this.loadPage.bind(this);
     this.toggleTimeframe = this.toggleTimeframe.bind(this);
+    this.handleUnitChange = this.handleUnitChange.bind(this);
     this.daily = true;
     this.isImperial = true;
     this.hourlySlideIdx = 1;
   }
 
-  getTempDelimiter() {
-    return " \u00B0" + imperialMap[this.isImperial].tempUnit;
+  handleUnitChange() {
+    this.isImperial = !this.isImperial;
+    this.loadPage(this.city.getName(), imperialMap[this.isImperial]["units"]);
+  }
+
+  getTempDelimiter(option=true) {
+    if (option) { return " \u00B0" + imperialMap[this.isImperial].tempUnit; }
+    if (!option) { return " \u00B0" + imperialMap[!this.isImperial].tempUnit; }
   }
 
   getPressureDelimiter() {
@@ -37,10 +44,18 @@ class UI {
     }, 1000, this.city.getTimezone())
   }
 
-  async loadPage() {
+  async loadPage(location, units) {
+    if (location instanceof Event) {
+      location = "Chicago";
+      units = imperialMap[this.isImperial]["units"];
+    }
+
+    const unitChangeBtn = document.querySelector(".change-unit");
+    unitChangeBtn.textContent = "Display " + this.getTempDelimiter(false);
+
     // todo move back to event listener after finished
     this.addEventListeners();
-    this.city = await APIService.createNewWeatherObject("Chicago");
+    this.city = await APIService.createNewWeatherObject(location, units);
     this.loadSections();
   }
 
@@ -48,9 +63,10 @@ class UI {
     // todo handle to make sure correct city
     const rawLocation = formValues[0];
     const location = formatLocation(rawLocation);
+    const units = imperialMap[this.isImperial]["units"];
 
     // todo add loader css
-    this.city = await APIService.createNewWeatherObject(location);
+    this.city = await APIService.createNewWeatherObject(location, units);
 
     this.loadSections();
   }
@@ -383,8 +399,12 @@ class UI {
 
       const formData = new FormData(form);
       const values = [...formData.values()];
+      form.reset();
       this.loadWeather(values);
     });
+
+    const changeUnitBtn = document.querySelector(".change-unit");
+    changeUnitBtn.addEventListener('click', this.handleUnitChange);
 
     const dailyToggle = document.querySelector("span.labels");
     dailyToggle.addEventListener('click', this.toggleTimeframe)

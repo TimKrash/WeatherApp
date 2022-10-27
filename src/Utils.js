@@ -53,7 +53,7 @@ function getDirection(deg) {
 }
 
 const imperialMap = {}
-imperialMap[true] = {tempUnit: 'F', speedUnit: 'mph', pressureUnit: 'hPa'}
-imperialMap[false] = {tempUnit: 'C', speedUnit: 'mps', pressureUnit: 'hPa'}
+imperialMap[true] = {units: "imperial", tempUnit: 'F', speedUnit: 'mph', pressureUnit: 'hPa'}
+imperialMap[false] = {units: "metric", tempUnit: 'C', speedUnit: 'mps', pressureUnit: 'hPa'}
 
 export { GeocoderURL, WeatherURL, formatLocation, imperialMap, getDay, getImgUrl, getHour, getDirection };
